@@ -1,7 +1,6 @@
 package main.com.innowise.taskarray.service.impl;
 
 import main.com.innowise.taskarray.service.SumService;
-
 import java.util.logging.Logger;
 
 public class ArrayStringSumService implements SumService {
