@@ -1,6 +1,8 @@
 package main.com.innowise.taskarray.entity.impl;
 
 import main.com.innowise.taskarray.exception.ArrayException;
+import main.com.innowise.taskarray.parser.EntityParser;
+import main.com.innowise.taskarray.parser.impl.ArrayEntityParser;
 import main.com.innowise.taskarray.validator.impl.StringArrayValidator;
 
 import java.util.Arrays;
@@ -36,12 +38,9 @@ public class ArrayEntity {
             if (data == null || data.length == 0) {
                 throw new ArrayException("Array for set must have at least one correct element");
             }
-            StringArrayValidator stringArrayValidator = new StringArrayValidator();
-            if (stringArrayValidator.isValidTokens(data)) {
-                ArrayEntity.this.data = data.clone();
-                return this;
-            }
-            throw new ArrayException("Array contains invalid tokens");
+            EntityParser arrayEntityParser = new ArrayEntityParser();
+            ArrayEntity.this.data = arrayEntityParser.parseStringDataToArrayEntityData(data);
+            return this;
         }
 
         public Builder setId(int id) {

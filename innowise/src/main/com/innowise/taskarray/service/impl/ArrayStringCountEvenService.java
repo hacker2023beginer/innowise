@@ -1,6 +1,7 @@
 package main.com.innowise.taskarray.service.impl;
 
 import main.com.innowise.taskarray.entity.impl.ArrayEntity;
+import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.service.CountEvenService;
 
 import java.util.logging.Logger;

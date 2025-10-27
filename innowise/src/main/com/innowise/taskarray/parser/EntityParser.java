@@ -6,5 +6,6 @@ import main.com.innowise.taskarray.exception.ArrayException;
 import java.util.List;
 
 public interface EntityParser {
-    List<ArrayEntity> parseStringListToEntityArray(List<String> stringList, int id) throws ArrayException;
+    List<ArrayEntity> parseStringListToArrayEntityList(List<String> stringList, int id) throws ArrayException;
+    String[] parseStringDataToArrayEntityData(String[] data) throws ArrayException;
 }

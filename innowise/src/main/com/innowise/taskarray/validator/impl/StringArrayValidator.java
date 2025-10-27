@@ -10,18 +10,8 @@ public class StringArrayValidator implements ArrayValidator {
         return line != null && !line.isBlank();
     }
 
-    @Override
-    public boolean isValidTokens(String[] tokens) {
-        if (tokens == null || tokens.length == 0) {
-            return false;
-        }
-
-        for (String token : tokens) {
-            if (token == null || !token.trim().matches(TOKEN_REGEX)) {
-                return false;
-            }
-        }
-
-        return true;
+    public boolean isValidToken(String token) {
+        return token != null && token.trim().matches(TOKEN_REGEX);
     }
+
 }

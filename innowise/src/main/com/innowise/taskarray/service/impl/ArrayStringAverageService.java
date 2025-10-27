@@ -10,15 +10,10 @@ public class ArrayStringAverageService implements AverageService {
     private static final Logger logger = Logger.getLogger(ArrayStringAverageService.class.getName());
 
     @Override
-    public double average(ArrayEntity array) throws ArrayException {
+    public double average(ArrayEntity array){
         logger.info("Method average start");
         double sum = 0;
         String[] data = array.getData();
-        if (data == null || data.length == 0) {
-            logger.warning("Empty or null data array");
-            throw new ArrayException(); // или выбросить исключение
-        }
-
         for (String string : data) {
             logger.info("String: " + string);
             logger.info("Old sum: " + sum);
