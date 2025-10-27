@@ -1,6 +1,7 @@
 package main.com.innowise.taskarray.entity.impl;
 
 import main.com.innowise.taskarray.exception.ArrayException;
+import main.com.innowise.taskarray.validator.impl.StringArrayValidator;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -33,10 +34,14 @@ public class ArrayEntity {
 
         public Builder setData(String[] data) throws ArrayException {
             if (data == null || data.length == 0) {
-                throw new ArrayException("Array for set must have at least one element");
+                throw new ArrayException("Array for set must have at least one correct element");
             }
-            ArrayEntity.this.data = data.clone();
-            return this;
+            StringArrayValidator stringArrayValidator = new StringArrayValidator();
+            if (stringArrayValidator.isValidTokens(data)) {
+                ArrayEntity.this.data = data.clone();
+                return this;
+            }
+            throw new ArrayException("Array contains invalid tokens");
         }
 
         public Builder setId(int id) {
@@ -93,8 +98,12 @@ public class ArrayEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(data), id);
+        int result = 17;
+        result = 31 * result + Arrays.hashCode(data);
+        result = 31 * result + id;
+        return result;
     }
+
 }
 
 
