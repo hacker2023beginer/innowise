@@ -10,7 +10,8 @@ public class ArrayStringSortingService implements SortingService {
     @Override
     public String[] quickSort(ArrayEntity array) {
         logger.info("Method quickSort start");
-        String[] data = array.getData().clone();
+        String[] entityData = array.getData();
+        String[] data = entityData.clone();
         if (data.length <= 1) {
             logger.fine("Data length is less than 2. Method quickSort end");
             return data;
@@ -51,7 +52,8 @@ public class ArrayStringSortingService implements SortingService {
     @Override
     public String[] shellSort(ArrayEntity array) {
         logger.info("Method shellSort start");
-        String[] data = array.getData().clone();
+        String[] entityData = array.getData();
+        String[] data = entityData.clone();
         for (int s = data.length / 2; s >= 1; s--) {
             for (int i = s; i < data.length; i++) {
                 for (int j = i - s; j >= 0; j--){
@@ -70,7 +72,8 @@ public class ArrayStringSortingService implements SortingService {
     @Override
     public String[] bubbleSort(ArrayEntity array) {
         logger.info("Method bubbleSort start");
-        String[] data = array.getData().clone();
+        String[] entityData = array.getData();
+        String[] data = entityData.clone();
         boolean notSorted = true;
         int endSortedIndex = data.length - 1;
         while (notSorted) {

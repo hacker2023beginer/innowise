@@ -20,7 +20,8 @@ public class ArrayEntity {
 
     public String[] getData() {
         logger.fine("getData() called");
-        return data;
+        String[] result = data.clone();
+        return result;
     }
 
     public int getId() {

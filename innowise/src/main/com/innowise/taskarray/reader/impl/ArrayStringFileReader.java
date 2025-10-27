@@ -25,6 +25,10 @@ public class ArrayStringFileReader implements StringFileReader {
 
     @Override
     public List<String> readFromFile(Path path) throws ArrayException {
+        if (path == null) {
+            logger.warning("Path is null");
+            throw new ArrayException("Path must not be null");
+        }
         logger.info("readFromFile() called with path: " + path);
         List<String> listOfStrings;
         try {

@@ -11,7 +11,8 @@ public class ArrayStringReplaceService implements ReplaceService {
     @Override
     public String[] replaceIf(ArrayEntity array, IntPredicate predicate, String value) {
         logger.info("Method replaceIf start");
-        String[] data = array.getData().clone();
+        String[] entityData = array.getData();
+        String[] data = entityData.clone();
         for (int i = 0; i < data.length; i++) {
             logger.info("Current data: " + data[i]);
             if (predicate.test(data[i].length())) {

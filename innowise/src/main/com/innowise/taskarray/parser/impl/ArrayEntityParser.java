@@ -29,6 +29,7 @@ public class ArrayEntityParser implements EntityParser {
         AtomicInteger idCounter = new AtomicInteger(id);
 
         List<ArrayEntity> arrayEntityList = stringList.stream()
+                .filter(arrayValidator::isValidLine)
                 .map(String::trim)
                 .peek(line -> logger.fine("Trimmed line: " + line))
                 .filter(arrayValidator::isValidLine)
