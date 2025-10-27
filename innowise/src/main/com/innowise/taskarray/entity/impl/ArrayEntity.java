@@ -12,7 +12,7 @@ public class ArrayEntity {
     private static final Logger logger = Logger.getLogger(ArrayEntity.class.getName());
 
     private String[] data;
-    private int id;
+    private int id = 0;
 
     private ArrayEntity() {
         logger.fine("ArrayEntity constructor called");

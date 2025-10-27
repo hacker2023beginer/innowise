@@ -2,7 +2,6 @@ abc123 def456 GHI789
    jkl012   mno345
 !@# invalid$$$ 123abc
 
-
 nulltoken  validToken anotherValid123
 тест123 ещёТокен
 ABC DEF GHI

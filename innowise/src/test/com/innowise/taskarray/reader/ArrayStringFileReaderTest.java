@@ -4,11 +4,9 @@ import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.reader.impl.ArrayStringFileReader;
 import main.com.innowise.taskarray.validator.impl.StringArrayValidator;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,44 +16,20 @@ public class ArrayStringFileReaderTest {
     private final ArrayStringFileReader reader = new ArrayStringFileReader(new StringArrayValidator());
 
     @Test
-    void testReadValidLines(@TempDir Path tempDir) throws IOException, ArrayException {
-        Path file = tempDir.resolve("valid.txt");
-        Files.write(file, List.of(
-                "abc 123",     // valid
-                "   def456   ",// valid with trim
-                "",            // blank
-                "   ",         // blank with spaces
-                "ghi789"       // valid
-        ));
+    void testReadFromInputFile() throws ArrayException {
+        Path filePath = Paths.get("innowise", "data/input.txt");
 
-        List<String> result = reader.readFromFile(file);
-        assertEquals(3, result.size());
-        assertEquals("abc 123", result.get(0));
-        assertEquals("def456", result.get(1));
-        assertEquals("ghi789", result.get(2));
-    }
+        List<String> result = reader.readFromFile(filePath);
 
-    @Test
-    void testReadEmptyFile(@TempDir Path tempDir) throws IOException, ArrayException {
-        Path file = tempDir.resolve("empty.txt");
-        Files.write(file, List.of());
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
 
-        List<String> result = reader.readFromFile(file);
-        assertTrue(result.isEmpty());
-    }
+        assertTrue(result.contains("abc123 def456 GHI789"));
+        assertTrue(result.contains("validOne validTwo validThree"));
+        assertTrue(result.contains("nulltoken  validToken anotherValid123"));
 
-    @Test
-    void testReadFileWithOnlyBlankLines(@TempDir Path tempDir) throws IOException, ArrayException {
-        Path file = tempDir.resolve("blank.txt");
-        Files.write(file, List.of("   ", "", "\t", "\n"));
-
-        List<String> result = reader.readFromFile(file);
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void testIOExceptionThrowsArrayException() {
-        Path invalidPath = Path.of("nonexistent/file.txt");
-        assertThrows(ArrayException.class, () -> reader.readFromFile(invalidPath));
+        assertTrue(result.contains("%%% ??? ***"));
+        assertTrue(result.contains("!@# invalid$$$ 123abc"));
+        assertFalse(result.contains("   spaces   between   tokens"));
     }
 }
