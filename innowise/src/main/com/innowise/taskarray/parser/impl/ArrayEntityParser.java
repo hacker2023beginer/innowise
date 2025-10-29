@@ -47,7 +47,7 @@ public class ArrayEntityParser implements EntityParser {
     }
 
     @Override
-    public List<ArrayEntity> parseStringListToArrayEntityList(List<String[]> stringArrayList) throws ArrayException {
+    public List<ArrayEntity> parseStringArrayListToArrayEntityList(List<String[]> stringArrayList) throws ArrayException {
         logger.info("parseStringListToArrayEntityList() called");
         if (stringArrayList == null || stringArrayList.isEmpty()) {
             logger.warning("Input string list is null or empty");

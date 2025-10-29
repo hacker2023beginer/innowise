@@ -42,7 +42,7 @@ public class ArrayEntityParserTest {
     void testParseValidLinesToEntities() throws ArrayException {
         List<String> input = List.of("abc123 def456", "ghi789");
         List<String[]> parameter = parser.parseStringListToStringArrayList(input);
-        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(parameter);
+        List<ArrayEntity> result = parser.parseStringArrayListToArrayEntityList(parameter);
 
         assertEquals(2, result.size());
         assertEquals(0, result.get(0).getId());
@@ -55,7 +55,7 @@ public class ArrayEntityParserTest {
     void testParseLinesWithInvalidTokens() throws ArrayException {
         List<String> input = List.of("abc123 !@# def456", "###", "ghi789");
         List<String[]> parameter = parser.parseStringListToStringArrayList(input);
-        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(parameter);
+        List<ArrayEntity> result = parser.parseStringArrayListToArrayEntityList(parameter);
 
         assertEquals(2, result.size());
         assertArrayEquals(new String[]{"abc123", "def456"}, result.get(0).getData());
@@ -66,19 +66,19 @@ public class ArrayEntityParserTest {
     void testParseEmptyListThrowsException() throws ArrayException{
         List<String> input = List.of();
         List<String[]> parameter = parser.parseStringListToStringArrayList(input);
-        assertThrows(ArrayException.class, () -> parser.parseStringListToArrayEntityList(parameter));
+        assertThrows(ArrayException.class, () -> parser.parseStringArrayListToArrayEntityList(parameter));
     }
 
     @Test
     void testParseNullListThrowsException() {
-        assertThrows(ArrayException.class, () -> parser.parseStringListToArrayEntityList(null));
+        assertThrows(ArrayException.class, () -> parser.parseStringArrayListToArrayEntityList(null));
     }
 
     @Test
     void testParseListWithOnlyInvalidLinesReturnsEmpty() throws ArrayException {
         List<String> input = Arrays.asList("!!! ###", "   ", "");
         List<String[]> parameter = parser.parseStringListToStringArrayList(input);
-        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(parameter);
+        List<ArrayEntity> result = parser.parseStringArrayListToArrayEntityList(parameter);
         assertTrue(result.isEmpty());
     }
 }

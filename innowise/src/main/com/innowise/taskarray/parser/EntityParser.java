@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface EntityParser {
     List<String[]> parseStringListToStringArrayList(List<String> stringList) throws ArrayException;
-    List<ArrayEntity> parseStringListToArrayEntityList(List<String[]> stringArrayList) throws ArrayException;
+    List<ArrayEntity> parseStringArrayListToArrayEntityList(List<String[]> stringArrayList) throws ArrayException;
     String[] parseStringDataToArrayEntityData(String[] data) throws ArrayException;
 }
