@@ -1,6 +1,6 @@
 package main.com.innowise.taskarray.service.stream.impl;
 
-import main.com.innowise.taskarray.entity.impl.ArrayEntity;
+import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.service.ReplaceService;
 
 import java.util.Arrays;

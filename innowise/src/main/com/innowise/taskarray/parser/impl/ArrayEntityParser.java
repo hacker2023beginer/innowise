@@ -1,16 +1,15 @@
 package main.com.innowise.taskarray.parser.impl;
 
-import main.com.innowise.taskarray.entity.impl.ArrayEntity;
+import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.parser.EntityParser;
+import main.com.innowise.taskarray.util.ArrayEntityIdGenerator;
 import main.com.innowise.taskarray.validator.ArrayValidator;
 import main.com.innowise.taskarray.validator.impl.StringArrayValidator;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 public class ArrayEntityParser implements EntityParser {
 
@@ -18,15 +17,15 @@ public class ArrayEntityParser implements EntityParser {
     private static final String SPACE_DELIMITER_REGEX = "\\s+";
 
     @Override
-    public List<ArrayEntity> parseStringListToArrayEntityList(List<String> stringList, int id) throws ArrayException {
-        logger.info("parseStringListToArrayEntityList() called with id=" + id);
+    public List<ArrayEntity> parseStringListToArrayEntityList(List<String> stringList) throws ArrayException {
+        logger.info("parseStringListToArrayEntityList() called");
         if (stringList == null || stringList.isEmpty()) {
             logger.warning("Input string list is null or empty");
             throw new ArrayException("Input list must not be null or empty");
         }
 
         ArrayValidator arrayValidator = new StringArrayValidator();
-        AtomicInteger idCounter = new AtomicInteger(id);
+        int idCounter = ArrayEntityIdGenerator.nextId();
 
         List<ArrayEntity> arrayEntityList = stringList.stream()
                 .filter(arrayValidator::isValidLine)
@@ -47,7 +46,7 @@ public class ArrayEntityParser implements EntityParser {
                     try {
                         ArrayEntity entity = ArrayEntity.newBuilder()
                                 .setData(tokens)
-                                .setId(idCounter.getAndIncrement())
+                                .setId(idCounter)
                                 .build();
                         logger.fine("Built ArrayEntity with id=" + entity.getId());
                         return entity;

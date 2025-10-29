@@ -1,8 +1,7 @@
 package main.com.innowise.taskarray.service.stream.impl;
 
-import main.com.innowise.taskarray.entity.impl.ArrayEntity;
+import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.service.AverageService;
-import main.com.innowise.taskarray.service.impl.ArrayStringAverageService;
 
 import java.util.Arrays;
 import java.util.logging.Logger;

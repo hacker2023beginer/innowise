@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 public class StringArrayValidator implements ArrayValidator {
 
     private static final Logger logger = Logger.getLogger(StringArrayValidator.class.getName());
-    private static final String TOKEN_REGEX = "^[a-zA-Z0-9]+$";
 
     @Override
     public boolean isValidLine(String line) {

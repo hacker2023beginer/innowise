@@ -1,4 +1,4 @@
-package main.com.innowise.taskarray.entity.impl;
+package main.com.innowise.taskarray.entity;
 
 import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.parser.EntityParser;
@@ -11,8 +11,8 @@ public class ArrayEntity {
 
     private static final Logger logger = Logger.getLogger(ArrayEntity.class.getName());
 
-    private String[] data;
     private int id = 0;
+    private String[] data;
 
     private ArrayEntity() {
         logger.fine("ArrayEntity constructor called");
@@ -87,5 +87,13 @@ public class ArrayEntity {
         result = 31 * result + id;
         logger.fine("hashCode() result: " + result);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayEntity{" +
+                "data=" + Arrays.toString(data) +
+                ", id=" + id +
+                '}';
     }
 }

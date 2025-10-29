@@ -1,6 +1,6 @@
 package test.com.innowise.taskarray.parser;
 
-import main.com.innowise.taskarray.entity.impl.ArrayEntity;
+import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.parser.impl.ArrayEntityParser;
 import org.junit.jupiter.api.Test;
@@ -41,11 +41,11 @@ public class ArrayEntityParserTest {
     @Test
     void testParseValidLinesToEntities() throws ArrayException {
         List<String> input = List.of("abc123 def456", "ghi789");
-        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(input, 100);
+        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(input);
 
         assertEquals(2, result.size());
-        assertEquals(100, result.get(0).getId());
-        assertEquals(101, result.get(1).getId());
+        assertEquals(0, result.get(0).getId());
+        assertEquals(1, result.get(1).getId());
         assertArrayEquals(new String[]{"abc123", "def456"}, result.get(0).getData());
         assertArrayEquals(new String[]{"ghi789"}, result.get(1).getData());
     }
@@ -53,7 +53,7 @@ public class ArrayEntityParserTest {
     @Test
     void testParseLinesWithInvalidTokens() throws ArrayException {
         List<String> input = List.of("abc123 !@# def456", "###", "ghi789");
-        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(input, 200);
+        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(input);
 
         assertEquals(2, result.size());
         assertArrayEquals(new String[]{"abc123", "def456"}, result.get(0).getData());
@@ -63,18 +63,18 @@ public class ArrayEntityParserTest {
     @Test
     void testParseEmptyListThrowsException() {
         List<String> input = List.of();
-        assertThrows(ArrayException.class, () -> parser.parseStringListToArrayEntityList(input, 300));
+        assertThrows(ArrayException.class, () -> parser.parseStringListToArrayEntityList(input));
     }
 
     @Test
     void testParseNullListThrowsException() {
-        assertThrows(ArrayException.class, () -> parser.parseStringListToArrayEntityList(null, 400));
+        assertThrows(ArrayException.class, () -> parser.parseStringListToArrayEntityList(null));
     }
 
     @Test
     void testParseListWithOnlyInvalidLinesReturnsEmpty() throws ArrayException {
-        List<String> input = Arrays.asList("!!! ###", "   ", "", null);
-        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(input, 500);
+        List<String> input = Arrays.asList("!!! ###", "   ", "");
+        List<ArrayEntity> result = parser.parseStringListToArrayEntityList(input);
         assertTrue(result.isEmpty());
     }
 }

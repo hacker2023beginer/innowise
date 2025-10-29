@@ -1,6 +1,6 @@
 package test.com.innowise.taskarray.service.stream;
 
-import main.com.innowise.taskarray.entity.impl.ArrayEntity;
+import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.service.stream.impl.ArrayStringAverageStreamService;
 import org.junit.jupiter.api.Test;

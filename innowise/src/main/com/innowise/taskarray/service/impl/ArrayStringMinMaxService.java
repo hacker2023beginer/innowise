@@ -1,7 +1,7 @@
 package main.com.innowise.taskarray.service.impl;
 
-import main.com.innowise.taskarray.entity.impl.ArrayEntity;
 import main.com.innowise.taskarray.service.MinMaxService;
+import main.com.innowise.taskarray.entity.ArrayEntity;
 
 import java.util.logging.Logger;
 

@@ -1,6 +1,6 @@
 package main.com.innowise.taskarray.service;
 
-import main.com.innowise.taskarray.entity.impl.ArrayEntity;
+import main.com.innowise.taskarray.entity.ArrayEntity;
 
 import java.util.function.IntPredicate;
 

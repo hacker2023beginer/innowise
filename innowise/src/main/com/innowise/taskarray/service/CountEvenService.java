@@ -1,7 +1,6 @@
 package main.com.innowise.taskarray.service;
 
-import main.com.innowise.taskarray.entity.impl.ArrayEntity;
-import main.com.innowise.taskarray.exception.ArrayException;
+import main.com.innowise.taskarray.entity.ArrayEntity;
 
 public interface CountEvenService {
     int countEven(ArrayEntity array);
