@@ -17,17 +17,16 @@ public class ArrayEntityParser implements EntityParser {
     private static final String SPACE_DELIMITER_REGEX = "\\s+";
 
     @Override
-    public List<ArrayEntity> parseStringListToArrayEntityList(List<String> stringList) throws ArrayException {
-        logger.info("parseStringListToArrayEntityList() called");
+    public List<String[]> parseStringListToStringArrayList(List<String> stringList) throws ArrayException {
+        logger.info("parseStringListToStringArrayList() called");
         if (stringList == null || stringList.isEmpty()) {
             logger.warning("Input string list is null or empty");
             throw new ArrayException("Input list must not be null or empty");
         }
 
         ArrayValidator arrayValidator = new StringArrayValidator();
-        int idCounter = ArrayEntityIdGenerator.nextId();
 
-        List<ArrayEntity> arrayEntityList = stringList.stream()
+        List<String[]> listOfStringArrays = stringList.stream()
                 .filter(arrayValidator::isValidLine)
                 .map(String::trim)
                 .peek(line -> logger.fine("Trimmed line: " + line))
@@ -42,6 +41,21 @@ public class ArrayEntityParser implements EntityParser {
                     return filtered;
                 })
                 .filter(filtered -> filtered.length > 0)
+                .filter(obj -> obj != null)
+                .toList();
+        return listOfStringArrays;
+    }
+
+    @Override
+    public List<ArrayEntity> parseStringListToArrayEntityList(List<String[]> stringArrayList) throws ArrayException {
+        logger.info("parseStringListToArrayEntityList() called");
+        if (stringArrayList == null || stringArrayList.isEmpty()) {
+            logger.warning("Input string list is null or empty");
+            throw new ArrayException("Input list must not be null or empty");
+        }
+
+        int idCounter = ArrayEntityIdGenerator.nextId();
+        List<ArrayEntity> arrayEntityList = stringArrayList.stream()
                 .map(tokens -> {
                     try {
                         ArrayEntity entity = ArrayEntity.newBuilder()
