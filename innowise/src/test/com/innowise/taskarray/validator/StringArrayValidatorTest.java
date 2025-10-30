@@ -12,66 +12,68 @@ public class StringArrayValidatorTest {
     // --- isValidLine() ---
 
     @Test
-    void testValidLine() {
+    public void testValidLine() {
         assertTrue(validator.isValidLine("abc def"));
     }
 
     @Test
-    void testLineWithSpacesOnly() {
+    public void testLineWithSpacesOnly() {
         assertFalse(validator.isValidLine("     "));
     }
 
     @Test
-    void testEmptyLine() {
+    public void testEmptyLine() {
         assertFalse(validator.isValidLine(""));
     }
 
     @Test
-    void testNullLine() {
+    public void testNullLine() {
         assertFalse(validator.isValidLine(null));
     }
 
     // --- isValidToken() ---
 
     @Test
-    void testValidTokenAlphanumeric() {
+    public void testValidTokenAlphanumeric() {
         assertTrue(validator.isValidToken("abc123"));
     }
 
     @Test
-    void testValidTokenUppercase() {
+    public void testValidTokenUppercase() {
         assertTrue(validator.isValidToken("ABCDEF"));
     }
 
     @Test
-    void testValidTokenDigitsOnly() {
+    public void testValidTokenDigitsOnly() {
         assertTrue(validator.isValidToken("123456"));
     }
 
     @Test
-    void testInvalidTokenWithSymbols() {
-        assertFalse(validator.isValidToken("abc$123"));
-        assertFalse(validator.isValidToken("hello!"));
-        assertFalse(validator.isValidToken("###"));
+    public void testInvalidTokenWithSymbols() {
+        assertAll(
+                () -> assertFalse(validator.isValidToken("abc$123")),
+                () -> assertFalse(validator.isValidToken("hello!")),
+                () -> assertFalse(validator.isValidToken("###"))
+        );
     }
 
     @Test
-    void testInvalidTokenWithSpaces() {
+    public void testInvalidTokenWithSpaces() {
         assertFalse(validator.isValidToken("abc def"));
     }
 
     @Test
-    void testInvalidTokenWithUnicode() {
+    public void testInvalidTokenWithUnicode() {
         assertFalse(validator.isValidToken("тест123"));
     }
 
     @Test
-    void testEmptyToken() {
+    public void testEmptyToken() {
         assertFalse(validator.isValidToken(""));
     }
 
     @Test
-    void testNullToken() {
+    public void testNullToken() {
         assertFalse(validator.isValidToken(null));
     }
 }

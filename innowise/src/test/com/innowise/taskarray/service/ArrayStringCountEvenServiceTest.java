@@ -12,7 +12,7 @@ public class ArrayStringCountEvenServiceTest {
     private final ArrayStringCountEvenService service = new ArrayStringCountEvenService();
 
     @Test
-    void testCountEvenWithMixedLengths() throws ArrayException {
+    public void testCountEvenWithMixedLengths() throws ArrayException {
         String[] input = {"ab", "abc", "abcd", "a"}; // lengths: 2, 3, 4, 1 → even: ab, abcd → count = 2
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -24,7 +24,7 @@ public class ArrayStringCountEvenServiceTest {
     }
 
     @Test
-    void testCountOddWithMixedLengths() throws ArrayException {
+    public void testCountOddWithMixedLengths() throws ArrayException {
         String[] input = {"ab", "abc", "abcd", "a"}; // odd: abc, a → count = 2
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -36,7 +36,7 @@ public class ArrayStringCountEvenServiceTest {
     }
 
     @Test
-    void testCountEvenWithAllEvenLengths() throws ArrayException {
+    public void testCountEvenWithAllEvenLengths() throws ArrayException {
         String[] input = {"aa", "bbbb", "cc"}; // lengths: 2, 4, 2 → all even → count = 3
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -48,7 +48,7 @@ public class ArrayStringCountEvenServiceTest {
     }
 
     @Test
-    void testCountOddWithAllOddLengths() throws ArrayException {
+    public void testCountOddWithAllOddLengths() throws ArrayException {
         String[] input = {"a", "bbb", "ccc"}; // lengths: 1, 3, 3 → all odd → count = 3
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -60,7 +60,7 @@ public class ArrayStringCountEvenServiceTest {
     }
 
     @Test
-    void testCountEvenWithEmptyArrayThrowsException() {
+    public void testCountEvenWithEmptyArrayThrowsException() {
         String[] input = {};
         assertThrows(ArrayException.class, () ->
                 ArrayEntity.newBuilder()
@@ -71,7 +71,7 @@ public class ArrayStringCountEvenServiceTest {
     }
 
     @Test
-    void testCountEvenWithAllInvalidTokensThrowsException() {
+    public void testCountEvenWithAllInvalidTokensThrowsException() {
         String[] input = {"!!!", "", null};
         assertThrows(ArrayException.class, () ->
                 ArrayEntity.newBuilder()

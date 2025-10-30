@@ -5,37 +5,40 @@ import main.com.innowise.taskarray.exception.ArrayException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ArrayEntityTest {
 
     @Test
-    void testBuilderCreatesValidEntity() throws ArrayException {
+    public void testBuilderCreatesValidEntity() throws ArrayException {
         String[] input = {"abc123", "def456", "GHI789"};
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
                 .setId(1)
                 .build();
-
-        assertNotNull(entity);
-        assertEquals(1, entity.getId());
-        assertArrayEquals(input, entity.getData());
+        assertAll(
+                () -> assertNotNull(entity),
+                () -> assertEquals(1, entity.getId()),
+                () -> assertArrayEquals(input, entity.getData())
+        );
     }
 
     @Test
-    void testBuilderFiltersInvalidTokens() throws ArrayException {
+    public void testBuilderFiltersInvalidTokens() throws ArrayException {
         String[] input = {"abc123", "!@#", "def456"};
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
                 .setId(2)
                 .build();
-
-        assertNotNull(entity);
-        assertEquals(2, entity.getId());
-        assertArrayEquals(new String[]{"abc123", "def456"}, entity.getData());
+        assertAll(
+                () -> assertNotNull(entity),
+                () -> assertEquals(2, entity.getId()),
+                () -> assertArrayEquals(new String[]{"abc123", "def456"}, entity.getData())
+        );
     }
 
     @Test
-    void testBuilderThrowsExceptionOnEmptyInput() {
+    public void testBuilderThrowsExceptionOnEmptyInput() {
         String[] input = {};
         assertThrows(ArrayException.class, () ->
                 ArrayEntity.newBuilder()
@@ -46,7 +49,7 @@ public class ArrayEntityTest {
     }
 
     @Test
-    void testBuilderThrowsExceptionOnAllInvalidTokens() {
+    public void testBuilderThrowsExceptionOnAllInvalidTokens() {
         String[] input = {"!!!", "###", null};
         assertThrows(ArrayException.class, () ->
                 ArrayEntity.newBuilder()
@@ -57,17 +60,19 @@ public class ArrayEntityTest {
     }
 
     @Test
-    void testEqualsAndHashCode() throws ArrayException {
+    public void testEqualsAndHashCode() throws ArrayException {
         String[] input = {"abc", "123"};
         ArrayEntity entity1 = ArrayEntity.newBuilder().setData(input).setId(5).build();
         ArrayEntity entity2 = ArrayEntity.newBuilder().setData(input).setId(5).build();
 
-        assertEquals(entity1, entity2);
-        assertEquals(entity1.hashCode(), entity2.hashCode());
+        assertAll(
+                () -> assertEquals(entity1, entity2),
+                () -> assertEquals(entity1.hashCode(), entity2.hashCode())
+        );
     }
 
     @Test
-    void testNotEqualsDifferentId() throws ArrayException {
+    public void testNotEqualsDifferentId() throws ArrayException {
         String[] input = {"abc", "123"};
         ArrayEntity entity1 = ArrayEntity.newBuilder().setData(input).setId(5).build();
         ArrayEntity entity2 = ArrayEntity.newBuilder().setData(input).setId(6).build();
@@ -76,7 +81,7 @@ public class ArrayEntityTest {
     }
 
     @Test
-    void testNotEqualsDifferentData() throws ArrayException {
+    public void testNotEqualsDifferentData() throws ArrayException {
         ArrayEntity entity1 = ArrayEntity.newBuilder().setData(new String[]{"abc"}).setId(1).build();
         ArrayEntity entity2 = ArrayEntity.newBuilder().setData(new String[]{"xyz"}).setId(1).build();
 

@@ -12,7 +12,7 @@ public class ArrayStringAverageStreamServiceTest {
     private final ArrayStringAverageStreamService service = new ArrayStringAverageStreamService();
 
     @Test
-    void testAverageWithMultipleTokens() throws ArrayException {
+    public void testAverageWithMultipleTokens() throws ArrayException {
         String[] data = {"abc", "de", "fghi"}; // lengths: 3, 2, 4 → avg = 3.0
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setId(1)
@@ -24,7 +24,7 @@ public class ArrayStringAverageStreamServiceTest {
     }
 
     @Test
-    void testAverageWithSingleToken() throws ArrayException {
+    public void testAverageWithSingleToken() throws ArrayException {
         String[] data = {"abcdef"}; // length: 6 → avg = 6.0
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setId(2)

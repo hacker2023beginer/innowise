@@ -12,7 +12,7 @@ public class ArrayStringAverageServiceTest {
     private final ArrayStringAverageService service = new ArrayStringAverageService();
 
     @Test
-    void testAverageWithValidStrings() throws ArrayException {
+    public void testAverageWithValidStrings() throws ArrayException {
         String[] input = {"abc", "de", "fghi"}; // lengths: 3, 2, 4 → sum = 9 → avg = 3.0
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -24,7 +24,7 @@ public class ArrayStringAverageServiceTest {
     }
 
     @Test
-    void testAverageWithEmptyStrings() throws ArrayException {
+    public void testAverageWithEmptyStrings() throws ArrayException {
         String[] input = {"", "", ""};
         assertThrows(ArrayException.class, () ->
                 ArrayEntity.newBuilder()
@@ -35,7 +35,7 @@ public class ArrayStringAverageServiceTest {
     }
 
     @Test
-    void testAverageWithMixedLengthStrings() throws ArrayException {
+    public void testAverageWithMixedLengthStrings() throws ArrayException {
         String[] input = {"a", "bb", "ccc", "dddd"}; // sum = 10 → avg = 2.5
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -47,7 +47,7 @@ public class ArrayStringAverageServiceTest {
     }
 
     @Test
-    void testAverageWithNullInsideArray() throws ArrayException {
+    public void testAverageWithNullInsideArray() throws ArrayException {
         String[] input = {"abc", null, "de"};
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -59,7 +59,7 @@ public class ArrayStringAverageServiceTest {
     }
 
     @Test
-    void testAverageWithSingleElement() throws ArrayException {
+    public void testAverageWithSingleElement() throws ArrayException {
         String[] input = {"abcdef"}; // length = 6 → avg = 6.0
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)

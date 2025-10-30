@@ -17,21 +17,21 @@ public class ArrayEntityParserTest {
     // --- parseStringDataToArrayEntityData() ---
 
     @Test
-    void testParseValidTokens() throws ArrayException {
+    public void testParseValidTokens() throws ArrayException {
         String[] input = {"abc123", "DEF456", "789"};
         String[] result = parser.parseStringDataToArrayEntityData(input);
         assertArrayEquals(input, result);
     }
 
     @Test
-    void testParseMixedTokens() throws ArrayException {
+    public void testParseMixedTokens() throws ArrayException {
         String[] input = {"abc123", "!@#", "DEF456", null, "   "};
         String[] result = parser.parseStringDataToArrayEntityData(input);
         assertArrayEquals(new String[]{"abc123", "DEF456"}, result);
     }
 
     @Test
-    void testParseAllInvalidTokensThrowsException() {
+    public void testParseAllInvalidTokensThrowsException() {
         String[] input = {"!!!", "", null, "   "};
         assertThrows(ArrayException.class, () -> parser.parseStringDataToArrayEntityData(input));
     }
@@ -39,43 +39,47 @@ public class ArrayEntityParserTest {
     // --- parseStringListToArrayEntityList() ---
 
     @Test
-    void testParseValidLinesToEntities() throws ArrayException {
+    public void testParseValidLinesToEntities() throws ArrayException {
         List<String> input = List.of("abc123 def456", "ghi789");
         List<String[]> parameter = parser.parseStringListToStringArrayList(input);
         List<ArrayEntity> result = parser.parseStringArrayListToArrayEntityList(parameter);
 
-        assertEquals(2, result.size());
-        assertEquals(0, result.get(0).getId());
-        assertEquals(1, result.get(1).getId());
-        assertArrayEquals(new String[]{"abc123", "def456"}, result.get(0).getData());
-        assertArrayEquals(new String[]{"ghi789"}, result.get(1).getData());
+        assertAll(
+                () -> assertEquals(2, result.size()),
+                () -> assertEquals(0, result.get(0).getId()),
+                () -> assertEquals(1, result.get(1).getId()),
+                () -> assertArrayEquals(new String[]{"abc123", "def456"}, result.get(0).getData()),
+                () -> assertArrayEquals(new String[]{"ghi789"}, result.get(1).getData())
+        );
     }
 
     @Test
-    void testParseLinesWithInvalidTokens() throws ArrayException {
+    public void testParseLinesWithInvalidTokens() throws ArrayException {
         List<String> input = List.of("abc123 !@# def456", "###", "ghi789");
         List<String[]> parameter = parser.parseStringListToStringArrayList(input);
         List<ArrayEntity> result = parser.parseStringArrayListToArrayEntityList(parameter);
 
-        assertEquals(2, result.size());
-        assertArrayEquals(new String[]{"abc123", "def456"}, result.get(0).getData());
-        assertArrayEquals(new String[]{"ghi789"}, result.get(1).getData());
+        assertAll(
+                () -> assertEquals(2, result.size()),
+                () -> assertArrayEquals(new String[]{"abc123", "def456"}, result.get(0).getData()),
+                () -> assertArrayEquals(new String[]{"ghi789"}, result.get(1).getData())
+        );
     }
 
     @Test
-    void testParseEmptyListThrowsException() throws ArrayException{
+    public void testParseEmptyListThrowsException() throws ArrayException{
         List<String> input = List.of();
         List<String[]> parameter = parser.parseStringListToStringArrayList(input);
         assertThrows(ArrayException.class, () -> parser.parseStringArrayListToArrayEntityList(parameter));
     }
 
     @Test
-    void testParseNullListThrowsException() {
+    public void testParseNullListThrowsException() {
         assertThrows(ArrayException.class, () -> parser.parseStringArrayListToArrayEntityList(null));
     }
 
     @Test
-    void testParseListWithOnlyInvalidLinesReturnsEmpty() throws ArrayException {
+    public void testParseListWithOnlyInvalidLinesReturnsEmpty() throws ArrayException {
         List<String> input = Arrays.asList("!!! ###", "   ", "");
         List<String[]> parameter = parser.parseStringListToStringArrayList(input);
         List<ArrayEntity> result = parser.parseStringArrayListToArrayEntityList(parameter);

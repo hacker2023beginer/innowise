@@ -14,7 +14,7 @@ public class ArrayStringReplaceServiceTest {
     private final ArrayStringReplaceService service = new ArrayStringReplaceService();
 
     @Test
-    void testReplaceEvenLengthTokens() throws ArrayException {
+    public void testReplaceEvenLengthTokens() throws ArrayException {
         String[] input = {"ab", "abc", "abcd", "xyz"}; // lengths: 2, 3, 4, 3 → even: ab, abcd
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -26,12 +26,14 @@ public class ArrayStringReplaceServiceTest {
 
         String[] result = service.replaceIf(entity, isEven, replacement);
 
-        assertArrayEquals(new String[]{"REPLACED", "abc", "REPLACED", "xyz"}, result);
-        assertArrayEquals(input, entity.getData()); // ensure original is unchanged
+        assertAll(
+                () -> assertArrayEquals(new String[]{"REPLACED", "abc", "REPLACED", "xyz"}, result),
+                () -> assertArrayEquals(input, entity.getData()) // ensure original is unchanged
+        );
     }
 
     @Test
-    void testReplaceOddLengthTokens() throws ArrayException {
+    public void testReplaceOddLengthTokens() throws ArrayException {
         String[] input = {"a", "bb", "ccc", "dddd"}; // odd: a, ccc
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -47,7 +49,7 @@ public class ArrayStringReplaceServiceTest {
     }
 
     @Test
-    void testNoReplacementWhenPredicateFails() throws ArrayException {
+    public void testNoReplacementWhenPredicateFails() throws ArrayException {
         String[] input = {"abc", "def", "ghi"};
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -63,7 +65,7 @@ public class ArrayStringReplaceServiceTest {
     }
 
     @Test
-    void testReplaceAllWhenPredicateAlwaysTrue() throws ArrayException {
+    public void testReplaceAllWhenPredicateAlwaysTrue() throws ArrayException {
         String[] input = {"abc", "def", "ghi"};
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -79,7 +81,7 @@ public class ArrayStringReplaceServiceTest {
     }
 
     @Test
-    void testReplacePreservesOriginalArray() throws ArrayException {
+    public void testReplacePreservesOriginalArray() throws ArrayException {
         String[] input = {"abc", "def"};
         ArrayEntity entity = ArrayEntity.newBuilder()
                 .setData(input)
@@ -88,7 +90,9 @@ public class ArrayStringReplaceServiceTest {
 
         String[] result = service.replaceIf(entity, len -> len == 3, "X");
 
-        assertNotSame(result, entity.getData()); // ensure clone was used
-        assertArrayEquals(input, entity.getData()); // original remains unchanged
+        assertAll(
+                () -> assertNotSame(result, entity.getData()), // ensure clone was used
+                () -> assertArrayEquals(input, entity.getData()) // original remains unchanged
+        );
     }
 }

@@ -16,20 +16,22 @@ public class ArrayStringFileReaderTest {
     private final ArrayStringFileReader reader = new ArrayStringFileReader(new StringArrayValidator());
 
     @Test
-    void testReadFromInputFile() throws ArrayException {
+    public void testReadFromInputFile() throws ArrayException {
         Path filePath = Paths.get("innowise", "data/input.txt");
 
         List<String> result = reader.readFromFile(filePath);
 
-        assertNotNull(result);
-        assertFalse(result.isEmpty());
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertFalse(result.isEmpty()),
 
-        assertTrue(result.contains("abc123 def456 GHI789"));
-        assertTrue(result.contains("validOne validTwo validThree"));
-        assertTrue(result.contains("nulltoken  validToken anotherValid123"));
+                () -> assertTrue(result.contains("abc123 def456 GHI789")),
+                () -> assertTrue(result.contains("validOne validTwo validThree")),
+                () -> assertTrue(result.contains("nulltoken  validToken anotherValid123")),
 
-        assertTrue(result.contains("%%% ??? ***"));
-        assertTrue(result.contains("!@# invalid$$$ 123abc"));
-        assertFalse(result.contains("   spaces   between   tokens"));
+                () -> assertTrue(result.contains("%%% ??? ***")),
+                () -> assertTrue(result.contains("!@# invalid$$$ 123abc")),
+                () -> assertFalse(result.contains("   spaces   between   tokens"))
+        );
     }
 }
