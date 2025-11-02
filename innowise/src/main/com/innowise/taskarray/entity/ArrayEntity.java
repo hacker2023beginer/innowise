@@ -5,6 +5,7 @@ import main.com.innowise.taskarray.parser.EntityParser;
 import main.com.innowise.taskarray.parser.impl.ArrayEntityParser;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 public class ArrayEntity {
@@ -33,6 +34,16 @@ public class ArrayEntity {
         logger.fine("newBuilder() called");
         return new ArrayEntity().new Builder();
     }
+
+    public static Comparator<ArrayEntity> getComparatorBy(String type) throws ArrayException {
+        return switch (type) {
+            case "id" -> Comparator.comparingInt(ArrayEntity::getId);
+            case "firstElemLength" -> Comparator.comparing(e -> e.getData().length > 0 ? e.getData()[0] : "");
+            case "dataLength" -> Comparator.comparingInt(e -> e.getData().length);
+            default -> throw new ArrayException("Unknown sort type: " + type);
+        };
+    }
+
 
     public class Builder {
 
