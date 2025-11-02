@@ -3,6 +3,7 @@ package main.com.innowise.taskarray.repository.impl;
 
 import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.exception.ArrayException;
+import main.com.innowise.taskarray.observer.impl.ArrayEntityObserver;
 import main.com.innowise.taskarray.repository.ArrayRepository;
 import main.com.innowise.taskarray.repository.EntitySpecification;
 
@@ -11,7 +12,18 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ArrayEntityRepository implements ArrayRepository {
+
+    private static ArrayEntityRepository instance;
     private final List<ArrayEntity> arrayEntityList = new ArrayList<>();
+
+    private ArrayEntityRepository() {}
+
+    public static ArrayEntityRepository getInstance() {
+        if (instance == null) {
+            instance = new ArrayEntityRepository();
+        }
+        return instance;
+    }
 
     @Override
     public boolean add(ArrayEntity entity) {

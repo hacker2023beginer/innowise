@@ -1,19 +1,24 @@
 package main.com.innowise.taskarray.entity;
 
 import main.com.innowise.taskarray.exception.ArrayException;
+import main.com.innowise.taskarray.observer.ArrayEntityObservable;
+import main.com.innowise.taskarray.observer.impl.ArrayEntityObserver;
 import main.com.innowise.taskarray.parser.EntityParser;
 import main.com.innowise.taskarray.parser.impl.ArrayEntityParser;
+import main.com.innowise.taskarray.validator.ArrayValidator;
+import main.com.innowise.taskarray.validator.impl.StringArrayValidator;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
-public class ArrayEntity {
+public class ArrayEntity implements ArrayEntityObservable {
 
     private static final Logger logger = Logger.getLogger(ArrayEntity.class.getName());
 
     private int id = 0;
     private String[] data;
+    private ArrayEntityObserver observer;
 
     private ArrayEntity() {
         logger.fine("ArrayEntity constructor called");
@@ -28,6 +33,45 @@ public class ArrayEntity {
     public int getId() {
         logger.fine("getId() called");
         return id;
+    }
+
+    public void setEntityData(String[] data) throws ArrayException {
+        if (data == null || data.length == 0) {
+            logger.warning("Data is null or empty");
+            throw new ArrayException("Array for set must have at least one correct element");
+        }
+        EntityParser parser = new ArrayEntityParser();
+        String[] correctData = parser.parseStringDataToArrayEntityData(data);
+
+        this.data = Arrays.copyOf(correctData, correctData.length);
+        notifyObservers();
+    }
+
+    public void setValueAtIndexOf(String string, int index) {
+        if (index >= 0 && index < data.length) {
+            ArrayValidator validator = new StringArrayValidator();
+            if (validator.isValidLine(string)) {
+                this.data[index] = string;
+                notifyObservers();
+            }
+        }
+    }
+
+    @Override
+    public void attach(ArrayEntityObserver observer) {
+        this.observer = observer;
+    }
+
+    @Override
+    public void detach(ArrayEntityObserver observer) {
+        this.observer = null;
+    }
+
+    @Override
+    public void notifyObservers() {
+        if (observer != null) {
+            observer.onArrayChanged(this);
+        }
     }
 
     public static Builder newBuilder() {
