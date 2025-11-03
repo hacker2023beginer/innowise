@@ -1,4 +1,4 @@
-package test.com.innowise.taskarray.validator;
+package main.com.innowise.taskarray.validator;
 
 import main.com.innowise.taskarray.validator.impl.StringArrayValidator;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package test.com.innowise.taskarray.service;
+package main.com.innowise.taskarray.service;
 
 import main.com.innowise.taskarray.service.impl.ArrayStringSumService;
 import org.junit.jupiter.api.Test;

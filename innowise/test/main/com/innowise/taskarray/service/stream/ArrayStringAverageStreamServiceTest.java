@@ -1,4 +1,4 @@
-package test.com.innowise.taskarray.service.stream;
+package main.com.innowise.taskarray.service.stream;
 
 import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.exception.ArrayException;

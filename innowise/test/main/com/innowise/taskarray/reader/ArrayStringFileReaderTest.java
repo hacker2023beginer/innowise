@@ -1,4 +1,4 @@
-package test.com.innowise.taskarray.reader;
+package main.com.innowise.taskarray.reader;
 
 import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.reader.impl.ArrayStringFileReader;
