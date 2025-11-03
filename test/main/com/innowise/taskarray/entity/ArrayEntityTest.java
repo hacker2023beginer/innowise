@@ -1,6 +1,5 @@
 package main.com.innowise.taskarray.entity;
 
-import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.exception.ArrayException;
 import org.junit.jupiter.api.Test;
 
