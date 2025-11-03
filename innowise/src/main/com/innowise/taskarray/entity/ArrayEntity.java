@@ -38,11 +38,14 @@ public class ArrayEntity implements ArrayEntityObservable {
     public void setEntityData(String[] data) throws ArrayException {
         if (data == null || data.length == 0) {
             logger.warning("Data is null or empty");
-            throw new ArrayException("Array for set must have at least one correct element");
+            throw new ArrayException("Array for set must have at least one element");
         }
         EntityParser parser = new ArrayEntityParser();
         String[] correctData = parser.parseStringDataToArrayEntityData(data);
-
+        if (correctData == null || correctData.length == 0) {
+            logger.warning("Data is null or empty");
+            throw new ArrayException("Array for set must have at least one correct element");
+        }
         this.data = Arrays.copyOf(correctData, correctData.length);
         notifyObservers();
     }
