@@ -1,6 +1,7 @@
 package main.com.innowise.taskarray.repository.impl;
 
 
+import main.com.innowise.taskarray.comparator.ArrayEntityComparator;
 import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.repository.EntitySpecification;
@@ -56,21 +57,21 @@ public class ArrayEntityRepository {
     }
 
     public List<ArrayEntity> sortById() throws ArrayException {
-        Comparator<ArrayEntity> comparator = ArrayEntity.getComparatorBy("id");
+        Comparator<ArrayEntity> comparator = ArrayEntityComparator.ID.getComparator();
         List<ArrayEntity> arrayEntityListCopy = new ArrayList<>(arrayEntityList);
         arrayEntityListCopy.sort(comparator);
         return arrayEntityListCopy;
     }
 
     public List<ArrayEntity> sortByDataLength() throws ArrayException {
-        Comparator<ArrayEntity> comparator = ArrayEntity.getComparatorBy("dataLength");
+        Comparator<ArrayEntity> comparator = ArrayEntityComparator.DATA.getComparator();
         List<ArrayEntity> arrayEntityListCopy = new ArrayList<>(arrayEntityList);
         arrayEntityListCopy.sort(comparator);
         return arrayEntityListCopy;
     }
 
     public List<ArrayEntity> sortByFirstDataElementLength() throws ArrayException {
-        Comparator<ArrayEntity> comparator = ArrayEntity.getComparatorBy("firstElemLength");
+        Comparator<ArrayEntity> comparator = ArrayEntityComparator.FIRST_ELEMENT.getComparator();
         List<ArrayEntity> arrayEntityListCopy = new ArrayList<>(arrayEntityList);
         arrayEntityListCopy.sort(comparator);
         return arrayEntityListCopy;
