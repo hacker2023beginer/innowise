@@ -14,5 +14,21 @@ public class ArrayParameters {
         this.max = Arrays.stream(data).mapToInt(String::length).max().orElse(Integer.MIN_VALUE);
         this.min = Arrays.stream(data).mapToInt(String::length).min().orElse(Integer.MAX_VALUE);
     }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public double getAverage() {
+        return average;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public int getMin() {
+        return min;
+    }
 }
 
