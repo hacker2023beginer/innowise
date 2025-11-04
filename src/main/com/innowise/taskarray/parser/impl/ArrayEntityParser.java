@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 public class ArrayEntityParser implements EntityParser {
 
     private static final Logger logger = Logger.getLogger(ArrayEntityParser.class.getName());
-    private static final String SPACE_DELIMITER_REGEX = "\\s+";
 
     @Override
     public List<String[]> parseStringListToStringArrayList(List<String> stringList) throws ArrayException {

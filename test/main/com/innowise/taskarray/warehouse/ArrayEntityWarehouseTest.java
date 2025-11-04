@@ -68,4 +68,19 @@ public class ArrayEntityWarehouseTest {
         );
     }
 
+    @Test
+    public void testServiceTriggersObserverAndWarehouseUpdate() throws ArrayException {
+        ArrayEntity entity = ArrayEntity.newBuilder()
+                .setId(555)
+                .setData(new String[]{"abc", "de", "fghi"})
+                .build();
+
+        // simulate service logic
+        ArrayEntityObserver observer = new ArrayEntityObserver();
+        observer.onArrayChanged(entity);
+
+        ArrayParameters params = ArrayEntityWarehouse.getInstance().get(555);
+        assertEquals(9, params.getSum());
+    }
+
 }

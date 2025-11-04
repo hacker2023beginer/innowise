@@ -4,6 +4,7 @@ import main.com.innowise.taskarray.entity.ArrayEntity;
 import main.com.innowise.taskarray.exception.ArrayException;
 import main.com.innowise.taskarray.repository.impl.ArrayEntityRepository;
 import main.com.innowise.taskarray.repository.impl.ArrayEntityIdSpecification;
+import main.com.innowise.taskarray.repository.impl.ArrayEntitySumGreaterThanSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -91,4 +92,20 @@ public class ArrayEntityRepositoryTest {
                 () -> assertEquals(2, result.get(0).getId())
         );
     }
+
+    @Test
+    public void testRepositoryQueryWithSumSpecification() throws ArrayException {
+        ArrayEntityRepository repo = ArrayEntityRepository.getInstance();
+        repo.add(ArrayEntity.newBuilder().setId(1).setData(new String[]{"1", "2"}).build()); // sum = 2
+        repo.add(ArrayEntity.newBuilder().setId(2).setData(new String[]{"10", "20"}).build()); // sum = 4
+
+        EntitySpecification spec = new ArrayEntitySumGreaterThanSpecification(3);
+        List<ArrayEntity> result = repo.query(spec);
+
+        assertAll(
+                () -> assertEquals(1, result.size()),
+                () -> assertEquals(2, result.get(0).getId())
+        );
+    }
+
 }
